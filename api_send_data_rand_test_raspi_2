@@ -7,12 +7,18 @@ apikey = "123456789"
 # Adatok kuldese a sajat php api-ra
 def send_data_to_api(temperature, humidity):
     url = f'http://192.168.0.181/sensor/insert_data_apikey.php?api_key={apikey}&temperature={temperature}&humidity={humidity}'
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        print(f"Sikeres adatkuuldes: Homerseklet={temperature}, Paratartalom={humidity}")
-    else:
-        print(f"Sikertelen adatkuuldes: {response.status_code}")
+    print(f"Kuldesi URL: {url}")
+    try:
+        response = requests.get(url)
+        print(f"Valasz kod: {response.status_code}")
+        print(f"Valasz szoveg: {response.text}")
+        
+        if response.status_code == 200:
+            print(f"Sikeres adatkuuldes: Homerseklet={temperature}, Paratartalom={humidity}")
+        else:
+            print(f"Sikertelen adatkuuldes: {response.status_code}")
+    except Exception as e:
+        print(f"Hiba a kuldes soran: {e}")
 
 sensor = DHT11(4)  # GPIO4 (BCM szamozas)
 
