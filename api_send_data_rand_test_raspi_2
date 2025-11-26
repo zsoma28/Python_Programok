@@ -2,11 +2,11 @@ import requests
 import time
 from pigpio_dht import DHT11
 
-apikey = "NTLPKTK3A97LLKRE"
+apikey = "123456789"
 
 # Adatok kuldese a sajat php api-ra
 def send_data_to_api(temperature, humidity):
-    url = f'http://localhost/sensor/insert_data_apikey.php?api_key={apikey}&temperature={temperature}&humidity={humidity}'
+    url = f'http://192.168.0.181/sensor/insert_data_apikey.php?api_key={apikey}&temperature={temperature}&humidity={humidity}'
     response = requests.get(url)
     
     if response.status_code == 200:
