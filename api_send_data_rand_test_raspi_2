@@ -4,19 +4,19 @@ from pigpio_dht import DHT11
 
 apikey = "NTLPKTK3A97LLKRE"
 
-# Adatok küldése a saját php api-ra
+# Adatok kuldese a sajat php api-ra
 def send_data_to_api(temperature, humidity):
     url = f'http://localhost/sensor/insert_data_apikey.php?api_key={apikey}&temperature={temperature}&humidity={humidity}'
     response = requests.get(url)
     
     if response.status_code == 200:
-        print(f"Sikeres adatküldés: Hőmérséklet={temperature}, Páratartalom={humidity}")
+        print(f"Sikeres adatkuuldes: Homerseklet={temperature}, Paratartalom={humidity}")
     else:
-        print(f"Sikertelen adatküldés: {response.status_code}")
+        print(f"Sikertelen adatkuuldes: {response.status_code}")
 
-sensor = DHT11(4)  # GPIO4 (BCM számozás)
+sensor = DHT11(4)  # GPIO4 (BCM szamozas)
 
-# Végtelen ciklus 10 másodperces időközönként
+# Vegtelen ciklus 10 masodperces idokozonken
 while True:
     result = sensor.read()
     if result['valid']:
@@ -24,10 +24,10 @@ while True:
         humidity = round(result['humidity'], 2)
         print(f"{temperature:05.2f}*C {humidity:05.2f}%")
         
-        # Adatok küldése
+        # Adatok kuldese
         send_data_to_api(temperature, humidity)
     else:
-        print("Érvénytelen szenzor olvasás")
+        print("Ervenytelen szenzor olvasas")
     
-    # 10 másodperces várakozás
+    # 10 masodperces varakozas
     time.sleep(10)
